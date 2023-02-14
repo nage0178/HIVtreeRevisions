@@ -1,0 +1,5 @@
+install.packages("ggplot2")
+install.packages("viridis")
+install.packages("cowplot")
+install.packages("ggpubr")
+install.packages("scales")
