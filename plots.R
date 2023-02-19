@@ -76,6 +76,7 @@ for (j in 1:3) {
     )
     combResult <- cbind(combResult, as.factor(analysisType))
     colnames(combResult)[length(colnames(combResult))] <- "analysis"
+    colnames(combResult)[8] <- "RMSE"
     
     rmse_p_leg <- ggplot(combResult, aes(factor(analysis), RMSE, fill = analysis)) + geom_violin() + facet_grid(cols = vars(gene))  +theme_half_open()  +labs(
       x = "Analysis",
@@ -116,7 +117,7 @@ figure <- ggarrange(plot_list[[1]], plot_list[[2]],
                     ncol = 2, nrow = 4)
 #pdf("~/latency_manuscript/figures/summaryRevisions.pdf", width = 14, height = 12)
 
-pdf("~/HIVtreeRevisions/summaryRevisions.pdf", width = 14, height = 12)
+pdf("summaryRevisions.pdf", width = 14, height = 12)
 figure
 dev.off()
 # save pdf 5 x 7

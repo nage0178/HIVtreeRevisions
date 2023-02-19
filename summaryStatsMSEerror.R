@@ -31,7 +31,7 @@ if (CI == 1 ) {
 dates <- cbind(dates, dates$nodeDate - dates$trueDate)
 colnames(dates)[length(colnames(dates))] <- "bias"
 
-RMSE <- c()
+MSEerror <- c()
 Per_RMSE <- c()
 bias <- c()
 coverage <- c()
@@ -49,8 +49,8 @@ for (i in index ) {
   currentDate <- which(dates$nodeName == i)
   #currentDate <- which(dates$trueDate == i)
 
-  # Calculate RMSE and bias
-  RMSE <- rbind (RMSE, mean (dates$nodeDate[currentDate] - dates$trueDate[currentDate])^2)
+  # Calculate MSEerror and bias
+  MSEerror <- rbind (MSEerror, mean (dates$nodeDate[currentDate] - dates$trueDate[currentDate])^2)
   Per_RMSE <- rbind (Per_RMSE, (mean ((dates$nodeDate[currentDate] - dates$trueDate[currentDate])^2)^(1/2)) / dates$trueDate[currentDate[1]])
   bias <- rbind(bias, mean(dates$bias[currentDate]))
 
@@ -68,11 +68,11 @@ findTime <- function(x) {
 latentTimes <- unlist(lapply(strsplit(as.character(index), "_"), findTime))
 
 if (CI == 1) {
-  stats <- cbind(latentTimes, RMSE, bias, coverage, CI_size, Per_RMSE)
-  colnames(stats) <- c("latentTime", "RMSE", "bias", "coverageProb", "CISize", "Per_RMSE")
+  stats <- cbind(latentTimes, MSEerror, bias, coverage, CI_size, Per_RMSE)
+  colnames(stats) <- c("latentTime", "MSEerror", "bias", "coverageProb", "CISize", "Per_RMSE")
 } else {
-  stats <- cbind(latentTimes, RMSE, bias, Per_RMSE)
-  colnames(stats) <- c("latentTime", "RMSE", "bias", "Per_RMSE")
+  stats <- cbind(latentTimes, MSEerror, bias, Per_RMSE)
+  colnames(stats) <- c("latentTime", "MSEerror", "bias", "Per_RMSE")
 }
 
 
